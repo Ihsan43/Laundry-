@@ -1,0 +1,1 @@
+SELECT SUM(harga * jumlah) FROM mst_service WHERE customer_id = $1

@@ -1,0 +1,39 @@
+CREATE TABLE mst_customer (
+    id INT NOT NULL PRIMARY KEY,
+    customer_name VARCHAR(20) NOT NULL,
+    email VARCHAR(20),
+    no_hp VARCHAR(20)
+);
+
+CREATE TABLE mst_service (
+    id INT NOT NULL PRIMARY KEY,
+    customer_id INT NOT NULL,
+    jenis_layanan VARCHAR(20) NOT NULL, 
+    jumlah INT NOT NULL,
+	satuan VARCHAR NOT NULL,
+    harga INT NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES mst_customer (id)
+);
+
+CREATE TABLE transaction (
+    id INT NOT NULL PRIMARY KEY,
+    customer_id INT NOT NULL,
+    service_id INT NOT NULL,
+    tanggal_masuk DATE NOT NULL,
+    tanggal_keluar DATE NOT NULL,
+    pelayan VARCHAR(20) NOT NULL,
+    total_harga INT NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES mst_customer(id),
+    FOREIGN KEY (service_id) REFERENCES mst_service(id)
+);
+
+INSERT INTO mst_customer (id, customer_name, email, no_hp) VALUES
+    (1, 'Didin', 'Didin@gmail.com', '089543276778'),
+    (2, 'Jojo', 'Jojo@gmail.com', '089567455692');
+	   
+INSERT INTO mst_service (id, customer_id, jenis_layanan, satuan, jumlah, harga) VALUES
+    (1, 1, 'Cuci + Setrika', 'kg', 2, 7000);
+
+INSERT INTO transaction (id, service_id, customer_id, tanggal_masuk, tanggal_keluar, pelayan, harga) VALUES
+    (1, 1, 1, '2023-04-20', '2023-04-24', 'Siska', 14000);
+	
